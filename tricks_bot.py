@@ -5,8 +5,8 @@ import db
 TELEGRAM_API_KEY = '1913559958:AAH-BJrimcFszfxVYfInR1vttLdrPOWEzTY'
 COMMAND_START = "/start"
 COMMAND_LEADER_BOARD = "/leader_board"
-COMMAND_ENABLE_BOT = "/stop_suka"
-COMMAND_DISABLE_BOT = "/start_suka"
+COMMAND_ENABLE_BOT = "/start_suka"
+COMMAND_DISABLE_BOT = "/stop_suka"
 
 bot = telebot.TeleBot(TELEGRAM_API_KEY)
 admins = [326664376, 959111044]
