@@ -1,10 +1,10 @@
 import psycopg2
 from collections.abc import Iterable
 
-DATABASE_NAME = 'tricks_database'
-DATABASE_USER = 'tricks_bot'
-DATABASE_PASSWORD = 'trikstriks123'
-DATABASE_HOST = 'localhost'
+DATABASE_NAME = 'dfl8vjlf3kg36l'
+DATABASE_USER = 'uocecehexbgqrk'
+DATABASE_PASSWORD = '4c135e95b0d16580c38e6e01ac13aa2692e614455c7bea1f31a7def3a3f6fb75'
+DATABASE_HOST = 'ec2-54-74-35-87.eu-west-1.compute.amazonaws.com'
 
 TABLE_USERS = 'users'
 TABLE_CODES = 'codes'
@@ -66,7 +66,8 @@ def send_transaction(transaction):
             dbname=DATABASE_NAME,
             user=DATABASE_USER,
             password=DATABASE_PASSWORD,
-            host=DATABASE_HOST
+            host=DATABASE_HOST,
+            port=5432
         )
         db_cursor = con.cursor()
         con.autocommit = True
@@ -79,7 +80,8 @@ def send_transaction(transaction):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
-        con.close()
+        if con is not None:
+            con.close()
 
 
 def get_single_value(cursor_result):
