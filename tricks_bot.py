@@ -54,15 +54,19 @@ def send_leader_board(user_id, sender_nick):
     leaders = db.get_leader_board()
     print(leaders)
     message_to_send = '*Рейтинг игроков\n*'
-    for score_record in leaders:
-        is_current_user = score_record[0] == sender_nick
-        username = f'@{score_record[0]}' if not score_record[0] == 'None' else 'Неизвестный гендер'
-        scores = score_record[1]
-        message_to_send = message_to_send + f'\n\n{username} - *{scores} qr*\n' \
-            if is_current_user \
-            else message_to_send + f'\n{username} - *{scores} qr*'
-    print(message_to_send)
-    bot.send_message(chat_id=user_id, text=message_to_send, parse_mode='Markdown')
+
+    if leaders is not None:
+        for score_record in leaders:
+            is_current_user = score_record[0] == sender_nick
+            username = f'@{score_record[0]}' if not score_record[0] == 'None' else 'Неизвестный гендер'
+            scores = score_record[1]
+            message_to_send = message_to_send + f'\n\n{username} - *{scores} qr*\n' \
+                if is_current_user \
+                else message_to_send + f'\n{username} - *{scores} qr*'
+        print(message_to_send)
+        bot.send_message(chat_id=user_id, text=message_to_send, parse_mode='Markdown')
+    else:
+        bot.send_message(chat_id=user_id, text='Кажется рейтинг пока пуст :)', parse_mode='Markdown')
 
 
 def register_user(username, user_id):
@@ -82,5 +86,3 @@ def register_code(username, code, user_id):
         return
     register = db.register_user_code(user_id, code)
     bot.send_message(chat_id=user_id, text=f'Класс!\nТвой результат: *{register}*', parse_mode='Markdown')
-
-
